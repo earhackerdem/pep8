@@ -9,6 +9,10 @@ except ValueError:
     print('El valor que digito no es un numero valido')
 except ZeroDivisionError:
     print('No se puede dividir por cero')
+finally:
+    print('Print desde finally')
+
+print('Este es otro print')
 
 
 
