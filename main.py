@@ -10,6 +10,14 @@ MAX_TRIES = 3
 
 DEFAULT_LANGUAGE = "es"  # PEP8 Comillas dobles para strings
 
+class NewsSystemError(Exception):
+    """Error general en la app"""
+    pass
+
+class APIKeyError(NewsSystemError):
+    """Error cuando la API KEY es invalida"""
+    pass
+
 
 def guardian_client(api_key, section,from_date,timeout=30,retries=3):
     return f"{section} desde {from_date}, con timeout {timeout}"
@@ -62,14 +70,14 @@ import json
 
 def newsapi_client(api_key,query,timeout=30,retries=3):
     query_string = urllib.parse.urlencode({"q": query,'apiKey':api_key})
-    
     url = f"{BASE_URL}?{query_string}"
 
-    print(url)
-    with urllib.request.urlopen(url,timeout=timeout) as response:
-        data = response.read().decode('utf-8')
-        return json.loads(data)
-        
+    try:
+        with urllib.request.urlopen(url,timeout=timeout) as response:
+            data = response.read().decode('utf-8')
+            return json.loads(data)
+    except urllib.error.HTTPError:
+        raise APIKeyError('Ocurrio un error, no se pudo conectar con la API')
     return f"News api: {query} con timeout {timeout}"
 
 
@@ -96,9 +104,14 @@ def fetch_news(api_name, *args, **kwargs):
     client = api_clients[api_name]
     return client(*args,**config)
 
+response_data = None
+
 try:
     response_data = fetch_news('newsapi',api_key=API_KEY,query="Python")
+except APIKeyError as e:
+    print(f"{e}")
+if response_data:
     for article in response_data['articles']:
         print(article["title"])
-except urllib.error.HTTPError:
-    print("La URL no existe")
+
+print("La URL no existe")
