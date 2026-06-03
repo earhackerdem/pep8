@@ -31,3 +31,4 @@ articles_dos: list[list][str] = [
     ['lista','lista'],
     ['lista','lista']
 ]
+

@@ -52,4 +52,5 @@ date = datetime(2024,12,5,10)
 
 text = f"La fecha completa es {date: %A %d %Y}"
 
+
 print(text)
