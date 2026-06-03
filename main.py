@@ -71,11 +71,8 @@ def process_article_data(raw_data):
 API_KEY = '7506b5608f2a47759e319524956f9055'
 
 
-
-import urllib.request
-import urllib.parse
-import json
-
+from news_analyzer.exceptions import APIKeyError
+from news_analyzer.api_client import fetch_news
 
 response_data = None
 

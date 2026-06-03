@@ -1,7 +1,7 @@
 import urllib.request
 import urllib.parse
 import json
-from errors import APIKeyError
+from .exceptions import APIKeyError
 
 BASE_URL = 'https://newsapi.org/v2/everything'
 
