@@ -25,10 +25,44 @@ def guardian_client(api_key, section,from_date,timeout=30,retries=3):
 
 # PEP 8 Utilidades comunes del proyecto - funciones snake_case
 def clean_text(text):
+    """
+    Limpia y normaliza una cadena de texto.
+
+    Elimina los espacios en blanco sobrantes al principio y al final de la
+    cadena y convierte todos los caracteres a minúsculas. Si el texto de
+    entrada está vacío o es None, devuelve una cadena vacía.
+
+    Parameters
+    ----------
+    text : str or None
+        El texto original que se desea limpiar y normalizar.
+
+    Returns
+    -------
+    str
+        El texto procesado en minúsculas y sin espacios en los extremos.
+
+    Raises
+    ------
+    TypeError
+        Si el argumento proporcionado no es una cadena de texto (str) o None.
+
+    Examples
+    --------
+    >>> clean_text("  Hola Mundo  ")
+    'hola mundo'
+    >>> clean_text("")
+    ''
+    >>> clean_text(None)
+    ''
+    """
     # PEP8 4 espacios para indentacion, no tabs
-    """Limpia y normalizatexto"""
     if not text:
         return ""
+    
+    if not isinstance(text, str):
+        raise TypeError("El argumento 'text' debe ser una cadena de texto (str) o None.")
+        
     return text.strip().lower()
 
 
