@@ -74,6 +74,7 @@ API_KEY = '7506b5608f2a47759e319524956f9055'
 from news_analyzer.exceptions import APIKeyError
 from news_analyzer.api_client import fetch_news
 from news_analyzer.utils import get_sources
+from news_analyzer.utils import get_articles_by_source
 
 response_data = None
 
@@ -86,4 +87,9 @@ if response_data:
     source_set = get_sources(response_data['articles'])
     for index,source in enumerate(source_set,start=1):
         print(f'{index}:{source}')
-    #print(source_set)
+    # for article in response_data['articles']:
+    #     print(article['title'])
+        
+github_articles = get_articles_by_source(response_data['articles'],"github.com")
+for github_article in github_articles:
+    print(github_article['source']['name'],github_article['title'])

@@ -4,3 +4,10 @@ def get_sources(articles):
         for article in articles
         if article.get("source") and article.get("source").get("name")
     }
+    
+def get_articles_by_source(articles: list[dict], source: str) -> list[dict]:
+    #print({article["source"]["name"] for article in articles})
+    return list(filter(
+        lambda article: article['source']['name'].lower() == source.lower(),
+        articles
+    ))
